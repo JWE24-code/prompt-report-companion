@@ -4,7 +4,7 @@ An unofficial study companion to **The Prompt Report: A Systematic Survey of Pro
 
 Two views in one static page:
 
-- **Reference**: vocabulary, a searchable taxonomy of text-based prompting techniques, multilingual/multimodal, agents and RAG, evaluation, security, alignment, charts, and the case study.
+- **Reference**: vocabulary, a searchable taxonomy of text-based prompting techniques, multilingual/multimodal, agents and RAG, evaluation, security, alignment, charts, the case study, and an appendix wordlist that explains the acronyms and general terms.
 - **Lessons**: 12 lessons from basics to advanced, with takeaways, a check question, and progress saved in the browser.
 
 ## Publish on GitHub Pages
@@ -44,4 +44,4 @@ This site is not affiliated with the authors.
 
 ## Editing
 
-Everything is in `index.html`. Technique data lives in the `TECH` array and lesson text in the `LESSONS` array inside the script.
+Everything is in `index.html`. Technique data lives in the `TECH` array, the appendix wordlist in the `GLOSS` array, and lesson text in the `LESSONS` array inside the script.

@@ -81,6 +81,7 @@ section.blk>.sub{color:var(--muted);font-size:.92rem;margin-bottom:18px}
 .vocab div{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
 .vocab dt{font:600 .95rem var(--font-display);margin-bottom:4px}
 .vocab dd{margin:0;font-size:.88rem;color:var(--fg-2)}
+.vocab dd.long{font:400 .78rem/1.4 var(--font-mono);color:var(--muted);margin-bottom:6px}
 
 /* taxonomy */
 .tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
@@ -226,6 +227,7 @@ footer p{max-width:80ch}
       <a href="#charts">Charts</a>
       <a href="#case">Case study</a>
       <a href="#sources">Sources</a>
+      <a href="#wordlist">Appendix: wordlist</a>
     </nav>
 
     <div>
@@ -341,6 +343,17 @@ Anadkat, S., Hoyle, A., Resnik, P. (2025).
 The Prompt Report: A Systematic Survey of Prompt Engineering Techniques.
 arXiv:2406.06608v6 [cs.CL].</pre>
         <p class="src" style="margin-top:12px">Technique attributions (for example "Wei et al., 2022") are the citations the paper itself gives. Use the "Find paper" link on each card, or the paper's reference list, to confirm the exact source before citing it.</p>
+      </section>
+
+      <section class="blk" id="wordlist">
+        <h2>Appendix: wordlist</h2>
+        <p class="sub">Acronyms and general terms used on this site, in alphabetical order. Terms the paper itself defines are under <a href="#vocabulary">Vocabulary</a>.</p>
+        <div class="tools">
+          <input class="search" id="gq" type="search" placeholder="Search the wordlist, e.g. CoT, recall, temperature" aria-label="Search the wordlist">
+        </div>
+        <p class="count" id="gcount" aria-live="polite"></p>
+        <dl class="vocab" id="gloss"></dl>
+        <p class="src" style="margin-top:14px">Long forms of technique names follow the papers that introduced them. General terms are explained in plain words for this site and are not quotations from the paper.</p>
       </section>
     </div>
   </div>
@@ -568,9 +581,120 @@ var SOURCES=[
  ['arXiv search','https://arxiv.org/search/','Each "Find paper" link on this site opens a title search here.']
 ];
 
+/* ---------- data: wordlist ---------- */
+/* [term, long form or '', explanation] */
+var GLOSS=[
+ ['ACL','Association for Computational Linguistics','The main research society for language technology. Its paper archive was one of the three places the authors searched.'],
+ ['AI','Artificial intelligence','Software that performs tasks which normally need human judgment. The paper is about generative AI, which produces text, images or audio.'],
+ ['APE','Automatic Prompt Engineer','A prompt engineering technique in which a model writes candidate prompts, scores them, and keeps the best.'],
+ ['arXiv','','A free online archive of research preprints. Numbers such as 2406.06608 identify one paper there.'],
+ ['AutoDiCoT','Automatic Directed CoT','A technique from the case study: the model explains its labels, and those explanations, corrected where it was wrong, become examples.'],
+ ['CLSP','Cross-Lingual Self Consistent Prompting','An ensemble that reasons in several languages and then combines the answers.'],
+ ['CoT','Chain-of-Thought','Having the model write out its reasoning steps before it gives the answer.'],
+ ['COSP','Consistency-based Self-adaptive Prompting','Builds few-shot CoT examples from the zero-shot answers the model agrees with itself on most.'],
+ ['COVE','Chain-of-Verification','Draft, write checking questions, answer them, then revise the draft.'],
+ ['CSV','Comma-separated values','A plain-text table format with one row per line and commas between the columns.'],
+ ['DDCoT','Duty Distinct Chain-of-Thought','A CoT variant for prompts with images that splits the problem into sub-questions.'],
+ ['DecoMT','Decomposed Prompting for Machine Translation','Translates a text in chunks and then joins them using the surrounding context.'],
+ ['DECOMP','Decomposed Prompting','Splits a task over helper functions that the model is shown how to call.'],
+ ['DENSE','Demonstration Ensembling','Runs several few-shot prompts with different examples and combines their outputs.'],
+ ['DiPMT','Dictionary-based Prompting for Machine Translation','Adds dictionary definitions to a translation prompt.'],
+ ['DiVeRSe','Diverse Verifier on Reasoning Steps','Varies the prompts, samples many reasoning paths, and scores each step.'],
+ ['F1','','One score that combines precision and recall (their harmonic mean). It is high only when both are high.'],
+ ['FLARE','Forward-Looking Active Retrieval augmented generation','Looks up information again and again while writing a long text.'],
+ ['GITM','Ghost in the Minecraft','An agent that splits a goal in the game Minecraft into smaller and smaller subgoals.'],
+ ['GPT','Generative Pre-trained Transformer','The model family from OpenAI. GPT-4 and gpt-3.5-turbo are the versions used in the paper.'],
+ ['GrIPS','Gradient-free Instructional Prompt Search','Improves a prompt by trying edits such as deleting, swapping and paraphrasing parts of it.'],
+ ['ICL','In-context learning','The model learns the task from examples or instructions inside the prompt, with no retraining.'],
+ ['In-CLT','In-context Cross-Lingual Transfer','Builds examples that mix the source and the target language.'],
+ ['IRCoT','Interleaved Retrieval guided by Chain-of-Thought','Alternates reasoning steps with document lookups.'],
+ ['IRP','Imitate, Retrieve, Paraphrase','A method for writing factual long-form text: plan in the right style, look up facts, then reword them.'],
+ ['JSON','JavaScript Object Notation','A common text format for structured data, written with braces, keys and values.'],
+ ['KNN','K-nearest neighbor','Choosing the k items most similar to a given one. Here: the examples closest to the test input.'],
+ ['LLaMA','','A family of language models from Meta. LLaMA2-7B is the second generation with 7 billion parameters.'],
+ ['LLM','Large language model','A model trained on very large amounts of text that predicts what comes next, such as GPT-4.'],
+ ['MAPS','Multi-Aspect Prompting and Selection','A translation method that gathers keywords and examples, drafts several versions, and picks the best.'],
+ ['MMLU','Massive Multitask Language Understanding','A benchmark of multiple-choice questions across many school and professional subjects.'],
+ ['MoRE','Mixture of Reasoning Experts','Uses a specialized prompt per kind of reasoning and takes the answer with the most agreement.'],
+ ['MoT','Memory-of-Thought','Solves unlabeled problems in advance and recalls similar ones later as examples.'],
+ ['MRKL','Modular Reasoning, Knowledge and Language','Pronounced "miracle". An LLM that routes each request to the right tool.'],
+ ['PAL','Program-aided Language Model','Turns a problem into code and runs the code to get the answer.'],
+ ['PARC','Prompts Augmented by Retrieval Cross-lingually','Fetches examples from a language with a lot of data to help one with little.'],
+ ['PRISMA','Preferred Reporting Items for Systematic Reviews and Meta-Analyses','A standard procedure for finding, filtering and reporting the papers in a literature review.'],
+ ['ProTeGi','Prompt Optimization with Textual Gradients','Has a model criticize a prompt and then rewrites the prompt to answer the criticism.'],
+ ['RAG','Retrieval augmented generation','Looking up outside documents and putting them in the prompt before the model answers.'],
+ ['RaR','Rephrase and Respond','The model first rewrites the question in its own words, then answers it.'],
+ ['RCoT','Reversing Chain-of-Thought','Rebuilds the question from the answer to check that the two fit together.'],
+ ['RE2','Re-reading','Repeats the question in the prompt so the model reads it twice.'],
+ ['ReAct','Reasoning and Acting','An agent loop of thought, action and observation.'],
+ ['RLPrompt','','A prompt engineering technique that tunes the wording of a prompt with reinforcement learning (learning from rewards).'],
+ ['S2A','System 2 Attention','The model first removes irrelevant text from the prompt, then answers the cleaned version.'],
+ ['SC','Self-consistency','Sample several answers and keep the one that comes up most often.'],
+ ['SG-ICL','Self-Generated In-Context Learning','The model writes its own examples when no real ones exist.'],
+ ['SimToM','','A name built from "simulation" and "theory of mind": answer from the viewpoint of one person, using only what that person knows.'],
+ ['SVG','Scalable Vector Graphics','An image format written as text, so a language model can draw by writing it.'],
+ ['Tab-CoT','Tabular Chain-of-Thought','CoT with the reasoning laid out as a table.'],
+ ['ThoT','Thread-of-Thought','Works through a long context in parts and summarizes along the way.'],
+ ['ToRA','Tool-integrated Reasoning Agent','Mixes reasoning steps and code for as long as the problem needs.'],
+ ['ToT','Tree-of-Thought','Explores several possible next steps and continues with the promising ones.'],
+ ['USP','Universal Self-Adaptive Prompting','A more general successor to COSP.'],
+ ['X-InSTA','Cross-lingual In-context Source-Target Alignment','Matches the examples to the input by meaning, by label, or both.'],
+ ['XLT','Cross-Lingual Thought','A template that has the model restate a non-English task in English and reason step by step.'],
+ ['XML','Extensible Markup Language','A text format that wraps content in named tags, such as <answer> and </answer>.'],
+ ['Agent','','An LLM system that takes actions outside the model itself, such as calling a tool, running code or searching.'],
+ ['Annotator','','A person who labels data by hand, for example marking whether a paper is about prompting.'],
+ ['Benchmark','','A fixed set of test questions used to compare models or techniques on equal terms.'],
+ ['Calibration','','How well stated confidence matches reality. A calibrated model that says 80% is right about 80% of the time.'],
+ ['Code interpreter','','A tool that runs code the model has written and hands back the result.'],
+ ['Corpus','','A large collection of text.'],
+ ['Data augmentation','','Making extra training or test items by varying the ones you already have.'],
+ ['Delimiter','','A marker that separates the parts of a prompt, such as a line of dashes or a pair of tags.'],
+ ['Dev set and test set','Development set, test set','The dev set is used while improving a prompt. The test set is held out and used once at the end, so the final score is honest.'],
+ ['Ensemble','','Several prompts or runs whose answers are combined, usually by majority vote.'],
+ ['Fine-tuning','','Training a model further on new data, which changes its weights. Prompting leaves the weights untouched.'],
+ ['Gradient-based method','','A method that improves a model or a prompt with the mathematics used in training, so it needs access to the inside of the model.'],
+ ['Greedy answer','','The output you get when the model always picks its single most likely next token, with no randomness.'],
+ ['Ground truth','','The correct labels, usually set by people, that outputs are checked against.'],
+ ['Hallucination','','Output that sounds right but is made up.'],
+ ['Hard prompt and soft prompt','','A hard prompt is made of real words. A soft prompt is a list of learned numbers with no readable text.'],
+ ['Inference','','Running a trained model to get an output, as opposed to training it.'],
+ ['Krippendorff\'s alpha','','A measure of how much human labelers agree beyond chance. 1 is perfect agreement and 0 is what chance would give.'],
+ ['Label','','The category assigned to an item, such as "positive" or "negative" for a review.'],
+ ['Likert scale','','A rating scale with ordered steps, such as 1 (strongly disagree) to 5 (strongly agree).'],
+ ['Low-resource language','','A language with little text available for training, so models handle it less well.'],
+ ['Majority vote','','Taking the answer that appears most often among several runs.'],
+ ['Multi-hop question','','A question that needs several facts chained together, each found in a different place.'],
+ ['Multimodal','','Using more than one kind of input or output, such as text with images, audio or video.'],
+ ['Mutual information','','A measure of how much knowing one thing tells you about another. Here: how strongly a template ties inputs to outputs.'],
+ ['Parseable','','In a form that a program can read reliably, for example an answer that is exactly "Yes" or "No".'],
+ ['Precision','','Of the items a system flagged, the share that were right. High precision means few false alarms.'],
+ ['Prefix prompt','','A prompt the model continues from the end, as chat models do. The alternative, filling a blank in the middle, is outside the scope of the paper.'],
+ ['Prompt drift','','The same prompt giving different results after the model behind it has been updated.'],
+ ['Recall','','Of the items that should have been flagged, the share the system found. High recall means few misses.'],
+ ['Regex','Regular expression','A compact pattern for finding text, such as "a number followed by a percent sign".'],
+ ['Shot','','One example in the prompt. Zero-shot has none, one-shot has one, few-shot has a handful.'],
+ ['Symbolic reasoning','','Reasoning in a formal language such as code or logic, which a program can check or run.'],
+ ['Systematic review','','A literature review that follows a fixed, documented search and filtering procedure, so others can repeat it.'],
+ ['Task-agnostic','','Usable for many kinds of task rather than built for one.'],
+ ['Temperature','','A setting for how random the output is. At zero the model picks the most likely token each time. Higher values give more varied answers.'],
+ ['Theory of mind','','Understanding that other people know and believe different things than you do.'],
+ ['Token','','The unit a model reads and writes: a word, a piece of a word, or a punctuation mark.'],
+ ['Weights','','The numbers inside a model that training sets. They hold what the model has learned.']
+];
+
 /* ---------- render: reference ---------- */
 function renderVocab(){
   $('vocab').innerHTML=VOCAB.map(function(v){return '<div><dt>'+esc(v[0])+'</dt><dd>'+esc(v[1])+'</dd></div>';}).join('');
+}
+var gquery='';
+function renderGloss(){
+  var q=gquery.trim().toLowerCase();
+  var list=GLOSS.filter(function(g){return !q||(g[0]+' '+g[1]+' '+g[2]).toLowerCase().indexOf(q)>-1;})
+    .sort(function(a,b){return a[0].toLowerCase().localeCompare(b[0].toLowerCase());});
+  $('gcount').textContent=list.length+' of '+GLOSS.length+' entries shown';
+  $('gloss').innerHTML=list.length?list.map(function(g){
+    return '<div><dt>'+esc(g[0])+'</dt>'+(g[1]?'<dd class="long">'+esc(g[1])+'</dd>':'')+'<dd>'+esc(g[2])+'</dd></div>';
+  }).join(''):'<p>No entries match. Try a shorter search.</p>';
 }
 var activeCat='all', query='';
 function renderFam(){
@@ -891,12 +1015,13 @@ function route(){
 
 /* ---------- init ---------- */
 loadDone();
-renderVocab();renderFam();renderChips();renderTechs();renderLists();renderCharts();
+renderVocab();renderGloss();renderFam();renderChips();renderTechs();renderLists();renderCharts();
 $('chips').addEventListener('click',function(e){
   var b=e.target.closest('.chip');if(!b)return;
   activeCat=b.getAttribute('data-cat');renderChips();renderTechs();
 });
 $('q').addEventListener('input',function(e){query=e.target.value;renderTechs();});
+$('gq').addEventListener('input',function(e){gquery=e.target.value;renderGloss();});
 window.addEventListener('hashchange',route);
 route();
 })();
